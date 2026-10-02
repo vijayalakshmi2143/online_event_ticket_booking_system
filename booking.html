@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventHub | Booking</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 30px;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #e63946;
+        }
+
+        .page {
+            width: 90%;
+            max-width: 1000px;
+            margin: 45px auto;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+        }
+
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            font-size: 21px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d8d8d8;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #e63946;
+        }
+
+        .event-summary {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .event-summary h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 13px 0;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .summary-item strong {
+            color: #222;
+            text-align: right;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 19px;
+            font-weight: bold;
+            padding-top: 15px;
+        }
+
+        .total-price {
+            color: #e63946;
+            font-size: 25px;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            border: none;
+            background: #e63946;
+            color: white;
+            padding: 14px;
+            margin-top: 25px;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .confirm-btn:hover {
+            background: #c92f3b;
+        }
+
+        .secure {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 750px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links a {
+                margin-left: 10px;
+                font-size: 13px;
+            }
+
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+
+        <div class="logo">
+            EventHub
+        </div>
+
+        <div class="nav-links">
+            <a href="events.html">Events</a>
+            <a href="booking.html">Booking</a>
+            <a href="login.html">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+    <div class="page">
+
+        <div class="page-title">
+            <h1>Complete Your Booking</h1>
+            <p>Enter your details and confirm your event tickets.</p>
+        </div>
+
+
+        <div class="booking-container">
+
+            <!-- User Details -->
+            <div class="card">
+
+                <h2>Attendee Details</h2>
+
+                <form id="bookingForm">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email address"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter your phone number"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="tickets">Number of Tickets</label>
+
+                        <select id="tickets" required>
+                            <option value="1">1 Ticket</option>
+                            <option value="2">2 Tickets</option>
+                            <option value="3">3 Tickets</option>
+                            <option value="4">4 Tickets</option>
+                            <option value="5">5 Tickets</option>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="confirm-btn">
+                        Confirm Booking
+                    </button>
+
+                </form>
+
+
+                <div class="secure">
+                    🔒 Your booking information is kept secure.
+                </div>
+
+            </div>
+
+
+            <!-- Booking Summary -->
+            <div class="card">
+
+                <h2>Booking Summary</h2>
+
+                <div class="event-summary">
+
+                    <h3 id="eventName">Music Concert</h3>
+
+                    <div class="summary-item">
+                        <span>Date</span>
+                        <strong id="eventDate">10 October 2026</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Time</span>
+                        <strong id="eventTime">7:00 PM</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Location</span>
+                        <strong id="eventLocation">
+                            Gachibowli Indoor Stadium, Hyderabad
+                        </strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Price / Ticket</span>
+                        <strong id="eventPrice">₹500</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+                    <span>Tickets</span>
+                    <strong id="ticketCount">1</strong>
+                </div>
+
+
+                <div class="total">
+
+                    <span>Total</span>
+
+                    <span class="total-price" id="totalPrice">
+                        ₹500
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        © 2026 EventHub. All Rights Reserved.
+    </footer>
+
+
+    <script>
+
+        /* Event data */
+        const events = {
+
+            music: {
+                name: "Music Concert",
+                date: "10 October 2026",
+                time: "7:00 PM",
+                location: "Gachibowli Indoor Stadium, Hyderabad",
+                price: 500
+            },
+
+            cricket: {
+                name: "Cricket Match",
+                date: "15 October 2026",
+                time: "6:30 PM",
+                location: "Rajiv Gandhi International Cricket Stadium, Uppal",
+                price: 800
+            },
+
+            movie: {
+                name: "Movie Night",
+                date: "20 October 2026",
+                time: "7:30 PM",
+                location: "PVR INOX, Banjara Hills, Hyderabad",
+                price: 250
+            },
+
+            tech: {
+                name: "Tech Conference",
+                date: "25 October 2026",
+                time: "10:00 AM",
+                location: "HICC, HITEX, Madhapur, Hyderabad",
+                price: 1000
+            }
+
+        };
+
+
+        /* Get selected event from URL */
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const selectedEvent =
+            urlParams.get("event") || "music";
+
+        const eventData =
+            events[selectedEvent] || events.music;
+
+
+        /* Display selected event */
+        document.getElementById("eventName").textContent =
+            eventData.name;
+
+        document.getElementById("eventDate").textContent =
+            eventData.date;
+
+        document.getElementById("eventTime").textContent =
+            eventData.time;
+
+        document.getElementById("eventLocation").textContent =
+            eventData.location;
+
+        document.getElementById("eventPrice").textContent =
+            "₹" + eventData.price;
+
+
+        const tickets =
+            document.getElementById("tickets");
+
+        const ticketCount =
+            document.getElementById("ticketCount");
+
+        const totalPrice =
+            document.getElementById("totalPrice");
+
+
+        /* Update total */
+        tickets.addEventListener("change", function() {
+
+            const count = Number(tickets.value);
+
+            ticketCount.textContent = count;
+
+            totalPrice.textContent =
+                "₹" + (count * eventData.price);
+
+        });
+
+
+        /* Booking form */
+        document.getElementById("bookingForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const name =
+                    document.getElementById("name").value;
+
+                const email =
+                    document.getElementById("email").value;
+
+                const phone =
+                    document.getElementById("phone").value;
+
+                const count =
+                    Number(tickets.value);
+
+                const total =
+                    count * eventData.price;
+
+
+                /* Save booking details */
+                localStorage.setItem(
+                    "bookingDetails",
+
+                    JSON.stringify({
+
+                        name: name,
+                        email: email,
+                        phone: phone,
+
+                        event: eventData.name,
+                        date: eventData.date,
+                        time: eventData.time,
+                        location: eventData.location,
+
+                        tickets: count,
+                        total: total
+
+                    })
+                );
+
+
+                /* Go to confirmation */
+                window.location.href =
+                    "payment.html";
+
+            });
+
+    </script>
+
+</body>
+</html>

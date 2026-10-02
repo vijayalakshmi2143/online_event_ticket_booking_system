@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Event Details | EventHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        /* Navbar */
+        nav {
+            height: 70px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 30px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #e63946;
+        }
+
+        /* Page */
+        .page {
+            width: 90%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        /* Back */
+        .back {
+            display: inline-block;
+            text-decoration: none;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .back:hover {
+            color: #e63946;
+        }
+
+        /* Main Card */
+        .event-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+        }
+
+        /* Banner */
+        .banner {
+            height: 300px;
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 100px;
+        }
+
+        /* Content */
+        .content {
+            padding: 35px 40px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 16px;
+            background: #fce8e9;
+            color: #e63946;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .content h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Event Info */
+        .event-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .info-box {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        .info-title {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 17px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        /* Map Button */
+        .map-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .map-btn:hover {
+            background: #e63946;
+        }
+
+        /* Description */
+        .description {
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+
+        .description h2 {
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .description p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* Bottom */
+        .bottom {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-text {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: bold;
+            color: #e63946;
+            margin-top: 5px;
+        }
+
+        .book-btn {
+            background: #e63946;
+            color: white;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background: #c92f3b;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+        @media (max-width: 650px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links a {
+                margin-left: 10px;
+                font-size: 13px;
+            }
+
+            .page {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .banner {
+                height: 220px;
+                font-size: 75px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .content h1 {
+                font-size: 28px;
+            }
+
+            .event-info {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .book-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+
+        <div class="logo">
+            EventHub
+        </div>
+
+        <div class="nav-links">
+            <a href="events.html">Events</a>
+            <a href="booking.html">Booking</a>
+            <a href="login.html">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+    <div class="page">
+
+        <a href="events.html" class="back">
+            ← Back to Events
+        </a>
+
+        <div class="event-card">
+
+            <!-- Event Banner -->
+            <div class="banner" id="eventIcon">
+                🎵
+            </div>
+
+
+            <!-- Event Content -->
+            <div class="content">
+
+                <span class="tag" id="eventTag">
+                    MUSIC EVENT
+                </span>
+
+                <h1 id="eventTitle">
+                    Music Concert
+                </h1>
+
+                <p class="subtitle" id="eventSubtitle">
+                    Experience an unforgettable evening filled with live music,
+                    entertainment and great memories.
+                </p>
+
+
+                <!-- Event Information -->
+                <div class="event-info">
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            Date
+                        </div>
+
+                        <div class="info-value" id="eventDate">
+                            10 October 2026
+                        </div>
+                    </div>
+
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            Time
+                        </div>
+
+                        <div class="info-value" id="eventTime">
+                            7:00 PM
+                        </div>
+                    </div>
+
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            Location
+                        </div>
+
+                        <div class="info-value" id="eventLocation">
+                            Gachibowli Indoor Stadium, Hyderabad
+                        </div>
+
+                        <a href="#" target="_blank" class="map-btn" id="mapLink">
+                            📍 View on Google Maps
+                        </a>
+                    </div>
+
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            Duration
+                        </div>
+
+                        <div class="info-value" id="eventDuration">
+                            3 Hours
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="description">
+
+                    <h2>
+                        About the Event
+                    </h2>
+
+                    <p id="eventDescription">
+                        Join us for an exciting live music concert featuring
+                        talented artists and amazing performances. Enjoy a
+                        memorable evening with music, entertainment and a
+                        vibrant atmosphere.
+                    </p>
+
+                </div>
+
+
+                <!-- Price and Booking -->
+                <div class="bottom">
+
+                    <div>
+                        <div class="price-text">
+                            Ticket Price
+                        </div>
+
+                        <div class="price" id="eventPrice">
+                            ₹500
+                        </div>
+                    </div>
+
+                    <a href="#" class="book-btn" id="bookButton">
+                        Book Now
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        © 2026 EventHub. All Rights Reserved.
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        const events = {
+
+            music: {
+                icon: "🎵",
+                tag: "MUSIC EVENT",
+                title: "Music Concert",
+                subtitle: "Experience an unforgettable evening filled with live music, entertainment and great memories.",
+                date: "10 October 2026",
+                time: "7:00 PM",
+                location: "Gachibowli Indoor Stadium, Hyderabad",
+                duration: "3 Hours",
+                price: "₹500",
+                map: "https://www.google.com/maps/search/?api=1&query=Gachibowli+Indoor+Stadium+Hyderabad",
+                description: "Join us for an exciting live music concert featuring talented artists and amazing performances. Enjoy a memorable evening with music, entertainment and a vibrant atmosphere."
+            },
+
+            cricket: {
+                icon: "🏏",
+                tag: "SPORTS EVENT",
+                title: "Cricket Match",
+                subtitle: "Enjoy an exciting cricket match with live action, thrilling moments and an energetic crowd.",
+                date: "15 October 2026",
+                time: "6:30 PM",
+                location: "Rajiv Gandhi International Cricket Stadium, Uppal",
+                duration: "4 Hours",
+                price: "₹800",
+                map: "https://www.google.com/maps/search/?api=1&query=Rajiv+Gandhi+International+Cricket+Stadium+Uppal+Hyderabad",
+                description: "Experience the excitement of live cricket at one of Hyderabad's major sports venues. Enjoy the match atmosphere with friends and fellow cricket fans."
+            },
+
+            movie: {
+                icon: "🎬",
+                tag: "MOVIE EVENT",
+                title: "Movie Night",
+                subtitle: "Relax, enjoy your favourite movie and spend a memorable evening with your friends and family.",
+                date: "20 October 2026",
+                time: "7:30 PM",
+                location: "PVR INOX, Banjara Hills, Hyderabad",
+                duration: "3 Hours",
+                price: "₹250",
+                map: "https://www.google.com/maps/search/?api=1&query=PVR+INOX+Banjara+Hills+Hyderabad",
+                description: "Enjoy a special movie night with a comfortable cinema experience, great entertainment and quality time with your loved ones."
+            },
+
+            tech: {
+                icon: "💻",
+                tag: "TECH EVENT",
+                title: "Tech Conference",
+                subtitle: "Explore technology, innovation and exciting ideas from the world of software and digital transformation.",
+                date: "25 October 2026",
+                time: "10:00 AM",
+                location: "HICC, HITEX, Madhapur, Hyderabad",
+                duration: "6 Hours",
+                price: "₹1000",
+                map: "https://www.google.com/maps/search/?api=1&query=HICC+HITEX+Madhapur+Hyderabad",
+                description: "Join technology enthusiasts and professionals for an informative conference covering modern technologies, innovation and digital trends."
+            }
+
+        };
+
+
+        // Get selected event from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedEvent = urlParams.get("event") || "music";
+
+        const event = events[selectedEvent] || events.music;
+
+
+        // Display event information
+        document.getElementById("eventIcon").textContent = event.icon;
+        document.getElementById("eventTag").textContent = event.tag;
+        document.getElementById("eventTitle").textContent = event.title;
+        document.getElementById("eventSubtitle").textContent = event.subtitle;
+        document.getElementById("eventDate").textContent = event.date;
+        document.getElementById("eventTime").textContent = event.time;
+        document.getElementById("eventLocation").textContent = event.location;
+        document.getElementById("eventDuration").textContent = event.duration;
+        document.getElementById("eventPrice").textContent = event.price;
+        document.getElementById("eventDescription").textContent = event.description;
+        document.getElementById("mapLink").href = event.map;
+        document.getElementById("bookButton").href ="booking.html?event=" + selectedEvent;
+
+    </script>
+
+</body>
+</html>

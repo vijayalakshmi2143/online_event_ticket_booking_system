@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventHub - Events</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Navbar */
+        nav {
+            background: #222;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: #ff4b2b;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #ff4b2b;
+        }
+
+        /* Heading */
+        .heading {
+            text-align: center;
+            padding: 40px 20px 25px;
+        }
+
+        .heading h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* Events */
+        .events-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding-bottom: 50px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .event-image {
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        .event-content {
+            padding: 20px;
+        }
+
+        .event-content h2 {
+            margin-bottom: 12px;
+        }
+
+        .event-content p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff4b2b;
+            margin-top: 15px;
+        }
+
+        .details-btn {
+            display: block;
+            text-align: center;
+            background: #ff4b2b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            margin-top: 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .details-btn:hover {
+            background: #e63e20;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <h2>🎟 EventHub</h2>
+
+        <div>
+            <a href="events.html">Events</a>
+            <a href="booking.html">My Booking</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </nav>
+
+
+    <!-- Heading -->
+    <div class="heading">
+        <h1>Discover Amazing Events 🎉</h1>
+        <p>Choose an event and book your tickets easily.</p>
+    </div>
+
+
+    <!-- Events -->
+    <div class="events-container">
+
+        <!-- Event 1 -->
+        <div class="event-card">
+
+            <div class="event-image">
+                🎵
+            </div>
+
+            <div class="event-content">
+
+                <h2>Music Concert</h2>
+
+                <p>📅 10 October 2026</p>
+                <p>⏰ 7:00 PM</p>
+                <p>📍 Gachibowli Indoor Stadium, Hyderabad</p>
+
+                <div class="price">
+                    ₹500
+                </div>
+
+                <a href="event-details.html?event=music" class="details-btn">
+                    View Details
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- Event 2 -->
+        <div class="event-card">
+
+            <div class="event-image">
+                🏏
+            </div>
+
+            <div class="event-content">
+
+                <h2>Cricket Match</h2>
+
+                <p>📅 15 October 2026</p>
+                <p>⏰ 6:30 PM</p>
+                <p>📍 Rajiv Gandhi International Cricket Stadium, Uppal</p>
+
+                <div class="price">
+                    ₹800
+                </div>
+
+                <a href="event-details.html?event=cricket" class="details-btn">
+                    View Details
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- Event 3 -->
+        <div class="event-card">
+
+            <div class="event-image">
+                🎬
+            </div>
+
+            <div class="event-content">
+
+                <h2>Movie Night</h2>
+
+                <p>📅 20 October 2026</p>
+                <p>⏰ 7:30 PM</p>
+                <p>📍 PVR INOX, Banjara Hills, Hyderabad</p>
+
+                <div class="price">
+                    ₹250
+                </div>
+
+                <a href="event-details.html?event=movie" class="details-btn">
+                    View Details
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- Event 4 -->
+        <div class="event-card">
+
+            <div class="event-image">
+                💻
+            </div>
+
+            <div class="event-content">
+
+                <h2>Tech Conference</h2>
+
+                <p>📅 25 October 2026</p>
+                <p>⏰ 10:00 AM</p>
+                <p>📍 HICC, HITEX, Madhapur, Hyderabad</p>
+
+                <div class="price">
+                    ₹1000
+                </div>
+
+                <a href="event-details.html?event=tech" class="details-btn">
+                    View Details
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

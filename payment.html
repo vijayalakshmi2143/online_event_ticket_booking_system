@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - EventHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            color: #60a5fa;
+        }
+
+        /* Main */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 45px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+        }
+
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        /* Event Summary */
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #111827;
+            margin-bottom: 20px;
+        }
+
+        .event-box {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .event-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+
+        .event-box span {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .amount-box {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #111827;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .amount-box span {
+            font-size: 18px;
+        }
+
+        .amount-box strong {
+            font-size: 24px;
+        }
+
+        /* Payment */
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .method {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .method:hover {
+            border-color: #2563eb;
+        }
+
+        .method.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .method input {
+            display: none;
+        }
+
+        .method-icon {
+            font-size: 25px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .pay-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .secure-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .demo-note {
+            margin-top: 20px;
+            padding: 12px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .payment-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .page-title h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">🎟️ EventHub</div>
+
+        <div>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="events.html" class="nav-link">Events</a>
+        </div>
+    </nav>
+
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <div class="page-title">
+            <h1>Complete Your Payment</h1>
+            <p>Choose your preferred online payment method</p>
+        </div>
+
+
+        <div class="payment-layout">
+
+            <!-- Event Summary -->
+            <div class="card">
+
+                <h2>🎫 Booking Summary</h2>
+
+                <div class="event-box">
+                    <strong id="eventName">Event</strong>
+                    <span>Event Name</span>
+                </div>
+
+                <div class="event-box">
+                    <strong id="eventDate">Date</strong>
+                    <span>Event Date</span>
+                </div>
+
+                <div class="event-box">
+                    <strong id="eventTime">Time</strong>
+                    <span>Event Time</span>
+                </div>
+
+                <div class="event-box">
+                    <strong id="eventLocation">Location</strong>
+                    <span>Venue</span>
+                </div>
+
+                <div class="event-box">
+                    <strong id="ticketCount">0 Ticket(s)</strong>
+                    <span>Number of Tickets</span>
+                </div>
+
+                <div class="amount-box">
+                    <span>Total Amount</span>
+                    <strong id="totalAmount">₹0</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Payment Section -->
+            <div class="card">
+
+                <h2>💳 Payment Details</h2>
+
+                <form id="paymentForm">
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+
+                        <label class="method active" id="upiMethod">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="UPI"
+                                checked
+                            >
+
+                            <span class="method-icon">📱</span>
+                            UPI
+                        </label>
+
+
+                        <label class="method" id="cardMethod">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="Card"
+                            >
+
+                            <span class="method-icon">💳</span>
+                            Card
+                        </label>
+
+                    </div>
+
+
+                    <!-- Payment Name -->
+                    <div class="form-group">
+
+                        <label for="paymentName">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="paymentName"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Reference -->
+                    <div class="form-group">
+
+                        <label for="paymentReference" id="referenceLabel">
+                            UPI ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="paymentReference"
+                            placeholder="Enter your UPI ID"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button type="submit" class="pay-btn">
+                        Pay Now
+                    </button>
+
+                    <p class="secure-text">
+                        🔒 Secure Demo Payment
+                    </p>
+
+                    <div class="demo-note">
+                        This is a project demonstration. No real money will be charged.
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        © 2026 EventHub | Event Ticket Booking System
+    </footer>
+
+
+    <script>
+
+        /* ================================
+           GET BOOKING DETAILS
+        ================================= */
+
+        const bookingData = localStorage.getItem("bookingDetails");
+
+        if (!bookingData) {
+
+            alert("No booking details found!");
+
+            window.location.href = "events.html";
+
+        } else {
+
+            const booking = JSON.parse(bookingData);
+
+
+            /* Event Details */
+
+            document.getElementById("eventName").textContent =
+                booking.event;
+
+            document.getElementById("eventDate").textContent =
+                booking.date;
+
+            document.getElementById("eventTime").textContent =
+                booking.time;
+
+            document.getElementById("eventLocation").textContent =
+                booking.location;
+
+
+            /* Tickets */
+
+            document.getElementById("ticketCount").textContent =
+                booking.tickets + " Ticket(s)";
+
+
+            /* Total Amount */
+
+            document.getElementById("totalAmount").textContent =
+                "₹" + booking.total;
+
+
+            /* Name */
+
+            document.getElementById("paymentName").value =
+                booking.name || "";
+
+        }
+
+
+        /* ================================
+           PAYMENT METHOD SWITCH
+        ================================= */
+
+        const upiMethod =
+            document.getElementById("upiMethod");
+
+        const cardMethod =
+            document.getElementById("cardMethod");
+
+        const referenceLabel =
+            document.getElementById("referenceLabel");
+
+        const paymentReference =
+            document.getElementById("paymentReference");
+
+
+        upiMethod.addEventListener("click", function () {
+
+            upiMethod.classList.add("active");
+
+            cardMethod.classList.remove("active");
+
+            referenceLabel.textContent = "UPI ID";
+
+            paymentReference.placeholder =
+                "Enter your UPI ID";
+
+            paymentReference.value = "";
+
+        });
+
+
+        cardMethod.addEventListener("click", function () {
+
+            cardMethod.classList.add("active");
+
+            upiMethod.classList.remove("active");
+
+            referenceLabel.textContent =
+                "Card Reference";
+
+            paymentReference.placeholder =
+                "Enter card reference";
+
+            paymentReference.value = "";
+
+        });
+
+
+        /* ================================
+           PAYMENT SUBMISSION
+        ================================= */
+
+        document.getElementById("paymentForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const selectedMethod =
+                document.querySelector(
+                    'input[name="paymentMethod"]:checked'
+                ).value;
+
+
+            const name =
+                document.getElementById("paymentName").value;
+
+
+            const reference =
+                document.getElementById("paymentReference").value;
+
+
+            if (name.trim() === "") {
+
+                alert("Please enter your name.");
+
+                return;
+
+            }
+
+
+            if (reference.trim() === "") {
+
+                alert(
+                    selectedMethod === "UPI"
+                    ? "Please enter your UPI ID."
+                    : "Please enter your card reference."
+                );
+
+                return;
+
+            }
+
+
+            /* Save Payment Details */
+
+            const paymentDetails = {
+
+                method: selectedMethod,
+
+                name: name,
+
+                reference: reference,
+
+                status: "Payment Successful"
+
+            };
+
+
+            localStorage.setItem(
+                "paymentDetails",
+                JSON.stringify(paymentDetails)
+            );
+
+
+            /* Success */
+
+            alert(
+                "Payment Successful!\n\n" +
+                "Payment Method: " + selectedMethod
+            );
+
+
+            /* Go to Confirmation */
+
+            window.location.href =
+                "confirmation.html";
+
+        });
+
+    </script>
+
+</body>
+</html>
